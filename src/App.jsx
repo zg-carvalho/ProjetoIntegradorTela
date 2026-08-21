@@ -53,10 +53,7 @@ function App() {
          </nav>
 
          <div>
-                    <a href="https://wa.me" target="_blank" rel="noopener noreferrer" className="link-whatsapp">
-                      {/* Adicionado o size de 32 pixels (pode aumentar ou diminuir esse número) */}
-                        <FaWhatsappSquare size={32} />
-                    </a>
+                  
          </div>
 
      </header>
