@@ -37,18 +37,17 @@ function App() {
         <div id='logo'>
             <img src={fotoPerfil} alt='logo cabeçalho'></img>
 
-             <span id="nome-escola"> Unidade Escolar <br></br>José Amável</span>       
+             <span id="nome-escola"> CETI - José Amável</span>       
         </div>
        
          
       
          <nav>
             <ul>
-               <li> <a href="#sobre">Projetos Escolar</a></li>
-               <li> <a href="#projetos">Provas</a></li>
-               <li> <a href="#contato">Colendário Escolar</a></li>
-              <li></li>
-
+               <li> <a href="#sobre"> <button type="button" class="btn btn-light">Projetos Escolar</button></a></li>
+               <li> <a href="#projetos"> <button type="button" class="btn btn-light">Provas e Atividades</button></a></li>
+               <li> <a href="#projetos"> <button type="button" class="btn btn-light">Calendário Escolar</button></a></li>
+               <li> <a href="#contato"> <button type="button" class="btn btn-light">Contato</button></a></li>
             </ul>
          </nav>
 
