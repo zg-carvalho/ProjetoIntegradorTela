@@ -88,7 +88,7 @@ function App() {
  </main>
 
  <footer>
-  <p>2026 - Desenvolvido por Josiel Carvalho</p>
+  <p>2026 - CETI - José Amável</p>
  </footer>
 
    </div>
