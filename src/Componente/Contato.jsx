@@ -1,77 +1,27 @@
 import { useState } from "react";
+import { FaWhatsappSquare } from "react-icons/fa";
 
 function Contato() {
 
-  const [formData, setFormData] = useState({
-    nome: "",
-    email: "",
-    msg: ""
-  });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.nome || !formData.email) {
-      alert("Preencha os campos obrigatórios.");
-      return;
-    }
-
-    alert(`Obrigado, ${formData.nome}! Mensagem enviada.`);
-
-    setFormData({
-      nome: "",
-      email: "",
-      msg: ""
-    });
-  };
 
   return (
     <section id="contato">
+            <a href="#contato" className="btn btn-light">
+              Contato
+            </a>
+          
 
-      <h2>Contato</h2>
-
-      <form onSubmit={handleSubmit}>
-
-        <input
-          type="text"
-          placeholder="Nome"
-          value={formData.nome}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              nome: e.target.value
-            })
-          }
-        />
-
-        <input
-          type="email"
-          placeholder="E-mail"
-          value={formData.email}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              email: e.target.value
-            })
-          }
-        />
-
-        <textarea
-          placeholder="Mensagem"
-          value={formData.msg}
-          onChange={(e) =>
-            setFormData({
-              ...formData,
-              msg: e.target.value
-            })
-          }
-        />
-
-        <button type="submit">
-          Enviar
-        </button>
-
-      </form>
+          <div className="item-whatsapp">
+            <a
+              href="https://wa.me"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-whatsapp"
+            >
+              <FaWhatsappSquare size={32} />
+            </a>
+          </div>   
+    
 
     </section>
   );

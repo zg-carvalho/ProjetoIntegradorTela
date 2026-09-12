@@ -11,12 +11,7 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    background-color: var(--light-bg);
-    color: var(--dark--color);
-}
+
 
 header {
     background-color: var(--white);
@@ -30,18 +25,21 @@ header {
     padding-bottom: 10px; /* Ajuste o valor em px para ajustar o espacamento do header */
 }
 
-
-/* Garante que o ícone tenha o tamanho correto e não quebre */
-.nav-whatsapp img {
-    width: 30px !important;
-    height: 30px !important;
-    display: block;
-    object-fit: contain;
-     margin-top: 0px; /* Empurra o texto para baixo em relação ao topo */
-    white-space: nowrap;
-    /* Mantenha as outras regras que você já configurou aqui */
+/* Centraliza o botão de contato e o ícone do WhatsApp */
+#contato {
+    display: flex;
+    flex-direction: row;     /* Muda de coluna para linha (lado a lado) */
+    align-items: center;     /* Alinha os centros verticalmente na mesma linha */
+    justify-content: center; /* Centraliza o bloco inteiro no meio da tela */
+    gap: 12px;               /* Mantém o espaçamento de 12px entre o botão e o ícone */
 }
 
+/* Seleciona o ícone do WhatsApp que está dentro do container */
+.item-whatsapp svg {
+    width: 42px !important;  /* Ajuste este valor para o tamanho desejado */
+    height: 42px !important; /* Mantenha igual à largura para ficar proporcional */
+    display: block;
+}
 /* Dá um espaço extra na direita do menu para o ícone não sumir da tela */
 ul, nav {
     padding-right: 20px; 
@@ -135,15 +133,7 @@ h2 {
     color: var(--dark-color);
 }
 
-.projetos-container {/* Ajuste os container de Projetos escola-Provas e Atividade-Calendário Acadêmico*/
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    margin-top: 30px;
-    color: var(--dark-color);
 
-}
 
 .card-projeto {
     background: var(--white);

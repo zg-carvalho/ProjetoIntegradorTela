@@ -15,9 +15,8 @@ function App() {
       <Cabecalho />
 
       <main>
-        <Destaque />
+     
         <Noticias />
-        <Projetos />
         <Calendario />
         <Contato />
       </main>
