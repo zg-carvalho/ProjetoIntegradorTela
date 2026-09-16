@@ -1,23 +1,24 @@
 import Cabecalho from "./Componente/Cabecalho";
-import Destaque from "./Componente/Destaque";
-import Noticias from "./Componente/Noticias";
-import Projetos from "./Componente/Projetos";
 import Calendario from "./Componente/Calendario";
+import Login from "./Componente/Login";
 import Contato from "./Componente/Contato";
 import Rodape from "./Componente/Rodape";
+import NoticiasCard from "./Componente/NoticiasCard";
+
 
 import "./index.css";
 
-function App() {
+
+function Home() {
   return (
     <div className="pagina">
 
       <Cabecalho />
 
       <main>
-     
-        <Noticias />
+        <NoticiasCard />
         <Calendario />
+        <Login/>
         <Contato />
       </main>
 
@@ -27,4 +28,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

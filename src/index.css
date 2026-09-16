@@ -145,9 +145,62 @@ h2 {
 }
 
 
+/* Ajuste Formulário de Login*/
+form {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 550px;
+    
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0,0,0,0,05);
+    border: 1px solid #e2e8f0;
+}
 
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+   color: var(--dark-color);
+}
+form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 
+}
+form input, form textarea {
+    padding: 14px;
+    border: 2px solid  rgb(178, 186, 194);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+   
+}
+form textarea {
+    resize: vertical;
+    min-height: 120px;
 
+}
+/* Ajuste botão de Login*/
+form button {
+    margin-top: 10px;
+    padding: 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+form button:hover {
+    background-color: #2563eb;
+    box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
 
 
 

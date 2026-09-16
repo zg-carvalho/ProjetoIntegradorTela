@@ -1,6 +1,6 @@
 import "./Noticias.css";
 
-function Noticias() {
+function NoticiasCard() {
   const noticias = [
     {
       id: 1,
@@ -77,4 +77,4 @@ function Noticias() {
   );
 }
 
-export default Noticias;
+export default NoticiasCard;

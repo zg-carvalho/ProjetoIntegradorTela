@@ -5,6 +5,7 @@ function Contato() {
 
 
   return (
+    
     <section id="contato">
             <a href="#contato" className="btn btn-light">
               Contato
