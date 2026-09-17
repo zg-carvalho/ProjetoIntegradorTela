@@ -175,7 +175,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
             </Field>
             <Field label="Slug" hint={`URL: /${noticia.slug}`}>
               <div style={{ display: 'flex', gap: 6 }}>
-                <input style={{ ...inp, flex: 1 }} value={noticia.slug} onChange={e => setNoticia(p => ({ ...p, slug: e.target.value }))} placeholder="meu-produto" />
+                <input style={{ ...inp, flex: 1 }} value={noticia.slug} onChange={e => setNoticia(p => ({ ...p, slug: e.target.value }))} placeholder="minha-noticia" />
                 <button onClick={() => setNoticia(p => ({ ...p, slug: slugify(p.name) }))}
                   style={{ padding: '0 10px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', fontSize: 11, color: '#64748b', whiteSpace: 'nowrap' }}>
                   Auto
@@ -215,7 +215,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
                       <button onClick={e => { e.stopPropagation(); moveSection(s.id, -1); }} disabled={i === 0}
                         style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#94a3b8', padding: '0 3px', opacity: i === 0 ? .3 : 1 }}>▲</button>
                       <button onClick={e => { e.stopPropagation(); moveSection(s.id, 1); }} disabled={i === noticia.sections.length - 1}
-                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#94a3b8', padding: '0 3px', opacity: i === product.sections.length - 1 ? .3 : 1 }}>▼</button>
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#94a3b8', padding: '0 3px', opacity: i === noticia.sections.length - 1 ? .3 : 1 }}>▼</button>
                       <button onClick={e => { e.stopPropagation(); removeSection(s.id); }}
                         style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 15, color: '#cbd5e1', padding: '0 2px', lineHeight: 1 }}
                         onMouseEnter={el => (el.currentTarget.style.color = '#ef4444')}

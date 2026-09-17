@@ -29,7 +29,7 @@ export function NoticiaPage({ noticia, onBack, onEdit }: Props) {
         <div style={{ width: 1, height: 20, background: '#e2e8f0' }} />
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{product.name}</span>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0f172a' }}>{noticia.name}</span>
           <span style={{ fontSize: 12, color: '#94a3b8', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 5, padding: '2px 8px' }}>
             /{noticia.slug}
           </span>

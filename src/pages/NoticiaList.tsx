@@ -63,7 +63,7 @@ export function NoticiaList({ onNew, onEdit, onView }: Props) {
         {!loading && noticias.length === 0 && !error && (
           <div style={{ textAlign: 'center', padding: '100px 0' }}>
             <h2 style={{ fontSize: 18, fontWeight: 700, color: '#1e293b', margin: '0 0 8px' }}>Nenhuma página criada</h2>
-            <p style={{ fontSize: 14, color: '#64748b', margin: '0 0 28px' }}>Crie sua primeira página de produto com editor visual</p>
+            <p style={{ fontSize: 14, color: '#64748b', margin: '0 0 28px' }}>Crie sua primeira página de noticia com editor visual</p>
             <button onClick={onNew} style={{ background: '#4f46e5', color: '#fff', border: 'none', borderRadius: 8, padding: '12px 28px', cursor: 'pointer', fontSize: 14, fontWeight: 600 }}>
               Criar primeira página
             </button>
