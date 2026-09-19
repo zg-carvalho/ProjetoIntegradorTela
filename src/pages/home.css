@@ -1,0 +1,183 @@
+html, body, #root {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* Área externa (Ocupa 100% da tela em branco) */
+.home-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Remove o travamento lateral e expande o fundo branco por toda a tela */
+div.home-container, #root div.home-container {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #ffffff !important;
+  box-sizing: border-box !important;
+}
+
+/* Estado de Carregamento */
+.home-loading {
+  text-align: center;
+  padding: 80px 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+/* Cabeçalho Idêntico à página de notícias (Fundo Branco com borda e alinhado à esquerda) */
+.home-header-wrapper {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  width: 100%;
+  padding: 20px 32px;
+  box-sizing: border-box;
+}
+
+.home-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home-header-content h1 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  text-align: left;
+}
+
+.home-header-content p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 3px 0 0;
+  text-align: left;
+}
+
+/* Área interna do conteúdo central */
+.home-main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+/* Mensagem de Lista Vazia */
+.home-empty-message {
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+  padding: 40px 0;
+}
+
+/* Grid de Cartões */
+.home-news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 360px));
+  gap: 28px;
+  justify-content: center;
+}
+
+/* Cartão Individual de Notícia */
+.news-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.news-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.news-card-body {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-card-body h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.news-card-body p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  flex: 1;
+  line-height: 1.5;
+}
+
+/* Botão de dentro do cartão (Ler notícia completa) */
+.btn-read-more {
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  margin-top: 12px;
+  width: 100%;
+}
+
+/* Rodapé inferior da Home */
+.home-footer {
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* Botão "Ver Todas as Notícias" */
+.btn-view-all {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #4f46e5;
+  font-weight: 600;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+footer { /* Rodapé */
+    text-align: center;
+    padding: 20px;
+    background-color: transparent; /* Remove o fundo para acompanhar o design clean da página */
+    color: #666666; /* Um cinza que mantém a elegância e legibilidade */
+    margin-top: 40px;
+    font-family: inherit; /* Força o rodapé a herdar a mesma fonte do cabeçalho e do resto da página */
+}
+.home-footer-global {
+    text-align: center;
+    padding: 25px 20px;
+    background-color: #f8f9fa; /* Cinza claro moderno e minimalista */
+    color: #4a5568; /* Grafite escuro para excelente leitura */
+    margin-top: 60px;
+    border-top: 1px solid #e2e8f0; /* Linha fina que delimita o espaço do rodapé */
+    font-family: inherit; /* Mantém a fonte idêntica ao cabeçalho */
+    font-size: 0.9rem;
+    font-weight: 500;
+}

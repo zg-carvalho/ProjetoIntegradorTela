@@ -29,6 +29,8 @@ export interface Noticia {
   id?: number;
   name: string;
   slug: string;
+  description: string;
+  coverImage: string;
   sections: PageSection[];
   createdAt?: string;
   updatedAt?: string;
@@ -46,8 +48,8 @@ export function createDefaultSection(type: SectionType): PageSection {
       return {
         id, type,
         content: {
-          title: 'Sobre a Noticia',
-          body: 'Escreva aqui uma descrição detalhada da Noticia.',
+          title: 'Sobre o Noticia',
+          body: 'Escreva aqui uma descrição detalhada do noticia.',
           align: 'left',
         },
       };

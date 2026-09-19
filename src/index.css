@@ -1,251 +1,111 @@
 :root {
-    --primary-color:#2563eb;
-    --dark-color:#0f172a;
-    --light-bg:#bcc8d3;
-    --white:#ffffff;
+  --text: #6b6375;
+  --text-h: #08060d;
+  --bg: #fff;
+  --border: #e5e4e7;
+  --code-bg: #f4f3ec;
+  --accent: #aa3bff;
+  --accent-bg: rgba(170, 59, 255, 0.1);
+  --accent-border: rgba(170, 59, 255, 0.5);
+  --social-bg: rgba(244, 243, 236, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+
+  font: 18px/145% var(--sans);
+  letter-spacing: 0.18px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
 }
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #9ca3af;
+    --text-h: #f3f4f6;
+    --bg: #16171d;
+    --border: #2e303a;
+    --code-bg: #1f2028;
+    --accent: #c084fc;
+    --accent-bg: rgba(192, 132, 252, 0.15);
+    --accent-border: rgba(192, 132, 252, 0.5);
+    --social-bg: rgba(47, 48, 58, 0.5);
+    --shadow:
+      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+  }
+
+  #social .button-icon {
+    filter: invert(1) brightness(2);
+  }
 }
 
-
-
-header {
-    background-color: var(--white);
-    padding: 1rem 5%;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    
-    padding-top: 10px;    /* Ajuste o valor em px para ajustar o espacamento do header */
-    padding-bottom: 10px; /* Ajuste o valor em px para ajustar o espacamento do header */
+#root {
+  width: 1126px;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  border-inline: 1px solid var(--border);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
-/* Centraliza o botão de contato e o ícone do WhatsApp */
-#contato {
-    display: flex;
-    flex-direction: row;     /* Muda de coluna para linha (lado a lado) */
-    align-items: center;     /* Alinha os centros verticalmente na mesma linha */
-    justify-content: center; /* Centraliza o bloco inteiro no meio da tela */
-    gap: 12px;               /* Mantém o espaçamento de 12px entre o botão e o ícone */
+body {
+  margin: 0;
 }
 
-/* Seleciona o ícone do WhatsApp que está dentro do container */
-.item-whatsapp svg {
-    width: 42px !important;  /* Ajuste este valor para o tamanho desejado */
-    height: 42px !important; /* Mantenha igual à largura para ficar proporcional */
-    display: block;
-}
-/* Dá um espaço extra na direita do menu para o ícone não sumir da tela */
-ul, nav {
-    padding-right: 20px; 
-}
-
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-    margin-top: 11px;
-
-}
-
-nav a {
-   text-decoration: none;
-   color: var(--dark-color);
-   font-weight: 600;
-   
-}
-
-section {
-    padding: 60px 5%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Garante que o texto fique em uma única linha */
-#nome-escola {
-    white-space: nowrap; 
-    font-size: 16px;     /* Ajuste o tamanho da fonte como preferir */
-    font-weight: bold;   /* Opcional: deixa o texto em negrito */
-    margin-top: 20px; /* Empurra o texto para baixo em relação ao topo */
-    white-space: nowrap;
-    /* Mantenha as outras regras que você já configurou aqui */
-}
-
-.link-whatsapp { /* Campo do ícone  do WhatsApp */
-    display: flex;
-    align-items: center;
-    color: #25D366; /* Opcional: Deixa o ícone com a cor verde oficial do WhatsApp */
-    transition: transform 0.2s;
-    padding-top: 10px;    /* Ajuste o valor em px para ajustar o espacamento do header */
-    padding-bottom: 15px; /* Ajuste o valor em px para ajustar o espacamento do header */
-}
-
-/* Efeito sutil de aumentar ao passar o mouse por cima */
-.link-whatsapp:hover {
-    transform: scale(1.1);
-    
-}
-
-#sobre {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-     color: var(--dark-color);
-}
-#logo {
-    display: flex;
-   width: 80px;
-    height: 80px;
-     gap: 20px; /* Aumente este número para afastar mais o nome da escola da logo*/
- 
-}
-
-
-#destaque {
-    display: flex;
-    flex-direction: column; /* Alinha o h2, a img e o p em formato de coluna */
-    align-items: center;    /* Centraliza todos os elementos horizontalmente */
-    text-align: center;     /* Garante que o texto fique centralizado */
-    width: 100%;            /* Ocupa a largura total da tela */
-    padding: 40px 0;        /* Opcional: dá um espaço confortável no topo e na base */
-}
-
-#destaque img {
-    max-width: 70%;        /* Impede que a imagem estoure o tamanho da tela em telas menores */
-    height: auto;           /* Mantém a proporção da imagem */
-    margin: 20px 0;         /* Opcional: adiciona um espaço acima e abaixo da imagem */
-}
-
-
-
-h1 { color: var(--dark-color);}
-
+h1,
 h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: var(--dark-color);
+  font-family: var(--heading);
+  font-weight: 500;
+  color: var(--text-h);
 }
 
-
-
-.card-projeto {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0,05);
-    flex: 1 1 300px;
-    max-width: 400px;
+h1 {
+  font-size: 56px;
+  letter-spacing: -1.68px;
+  margin: 32px 0;
+  @media (max-width: 1024px) {
+    font-size: 36px;
+    margin: 20px 0;
+  }
+}
+h2 {
+  font-size: 24px;
+  line-height: 118%;
+  letter-spacing: -0.24px;
+  margin: 0 0 8px;
+  @media (max-width: 1024px) {
+    font-size: 20px;
+  }
+}
+p {
+  margin: 0;
 }
 
-
-/* Ajuste Formulário de Login*/
-form {
-    background-color: var(--white);
-    padding: 40px;
-    border-radius: 16px;
-    max-width: 550px;
-    
-    margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0,0,0,0,05);
-    border: 1px solid #e2e8f0;
+code,
+.counter {
+  font-family: var(--mono);
+  display: inline-flex;
+  border-radius: 4px;
+  color: var(--text-h);
 }
 
-.campo {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-   color: var(--dark-color);
+code {
+  font-size: 15px;
+  line-height: 135%;
+  padding: 4px 8px;
+  background: var(--code-bg);
 }
-form label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-
-}
-form input, form textarea {
-    padding: 14px;
-    border: 2px solid  rgb(178, 186, 194);
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
-   
-}
-form textarea {
-    resize: vertical;
-    min-height: 120px;
-
-}
-/* Ajuste botão de Login*/
-form button {
-    margin-top: 10px;
-    padding: 16px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-}
-form button:hover {
-    background-color: #2563eb;
-    box-shadow: 0 4px 12px rgba(37,99,235,0.2);
-}
-
-
-
-
-
-
-
-footer {/* Ajuste rodapé*/
-    text-align: center;
-    padding: 20px;
-    background-color: var(--dark-color);
-    color: white;
-    margin-top: 40px;
-
-}
-
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    nav ul {
-        margin-top:15px;
-        gap:15px;
-    }
-
-    .card-projeto {
-        flex-basis:100%;
-    }
-}
-
-
-
-.dark-theme {
-    --light-bg:#0f172a;
-    --dark-color:#f1f5f9;
-    --white:#1e293b;
-    --primary-color:#3b82f6;
-    background-color: var(--light-bg);
-    color: var(--dark--color);
-}
-
-.dark-theme footer {
-    background-color: #020617;
-    color: #f1f5f9;
-}
-

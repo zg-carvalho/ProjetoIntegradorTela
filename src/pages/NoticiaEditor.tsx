@@ -1,21 +1,16 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import type { Noticia, PageSection, SectionType } from '../types/noticia';
 import { SECTION_LABELS, createDefaultSection } from '../types/noticia';
 import { generatePageHtml } from '../utils/pageGenerator';
-import { createNoticia, updateNoticia } from '../api/noticias';
-import { SectionEditor } from '../Componente/editor/SectionEditor';
-
-interface Props {
-  initial?: Noticia;
-  onBack: () => void;
-  onSaved: (p: Noticia) => void;
-}
+import { fetchNoticia, createNoticia, updateNoticia, uploadImage } from '../api/noticias';
+import { SectionEditor } from '../components/editor/SectionEditor';
 
 function slugify(str: string) {
   return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-const BLANK: Noticia = { name: 'Nova Noticia', slug: 'nova-noticia', sections: [] };
+const BLANK: Noticia = { name: 'Nova Noticia', slug: 'novo-noticia', description: '', coverImage: '', sections: [] };
 
 const SECTION_TYPES: Array<{ type: SectionType; desc: string }> = [
   { type: 'text',    desc: 'Bloco de texto livre' },
@@ -69,13 +64,28 @@ function AddSectionMenu({ onAdd }: { onAdd: (t: SectionType) => void }) {
   );
 }
 
-export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
-  const [noticia, setNoticia] = useState<Noticia>(initial ?? BLANK);
+export function NoticiaEditor() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const [noticia, setNoticia] = useState<Noticia>(BLANK);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(!!id);
+  const [uploadingCover, setUploadingCover] = useState(false);
   const [error, setError] = useState('');
   const [savedOk, setSavedOk] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const coverInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!id) return;
+    setLoading(true);
+    fetchNoticia(Number(id))
+      .then(setNoticia)
+      .catch(() => setError('Noticia não encontrado'))
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const html = generatePageHtml(noticia);
 
@@ -108,17 +118,42 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
     });
   };
 
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingCover(true);
+    setError('');
+    try {
+      const { url } = await uploadImage(file);
+      setNoticia(p => ({ ...p, coverImage: url }));
+    } catch {
+      setError('Erro ao enviar foto de capa');
+    } finally {
+      setUploadingCover(false);
+    }
+  };
+
   const handleSave = async () => {
     if (!noticia.name.trim()) { setError('Nome é obrigatório'); return; }
     if (!noticia.slug.trim()) { setError('Slug é obrigatório'); return; }
+    if (!noticia.description.trim()) { setError('Descrição é obrigatória'); return; }
+    if (!noticia.coverImage.trim()) { setError('Foto de capa é obrigatória'); return; }
     setSaving(true); setError(''); setSavedOk(false);
     try {
-      const payload = { name: noticia.name, slug: noticia.slug, sections: noticia.sections };
+      const payload = {
+        name: noticia.name,
+        slug: noticia.slug,
+        description: noticia.description,
+        coverImage: noticia.coverImage,
+        sections: noticia.sections,
+      };
       const result = noticia.id ? await updateNoticia(noticia.id, payload) : await createNoticia(payload);
       setNoticia(result);
-      onSaved(result);
       setSavedOk(true);
       setTimeout(() => setSavedOk(false), 3000);
+      if (!id && result.id) {
+        navigate(`/noticias/${result.id}/edit`, { replace: true });
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : 'Erro ao salvar');
     } finally {
@@ -126,12 +161,21 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
     }
   };
 
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif', color: '#94a3b8' }}>
+        Carregando noticia…
+      </div>
+    );
+  }
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif', background: '#f8fafc' }}>
+   /* 🔹 Alterado de '100vh' para incluir '100vw' e 'maxWidth: 100vw', eliminando o espaço em branco na direita */
+<div style={{ display: 'flex', flexDirection: 'column', width: '100vw', maxWidth: '100vw', height: '100vh', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif', background: '#f8fafc', margin: 0, padding: 0, boxSizing: 'border-box' }}>
 
       {/* TOP BAR */}
-      <div style={{ height: 52, display: 'flex', alignItems: 'center', gap: 12, padding: '0 16px', background: '#fff', borderBottom: '1px solid #e2e8f0', flexShrink: 0 }}>
-        <button onClick={onBack} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', background: 'none', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', fontSize: 13, color: '#64748b' }}>
+      <div style={{ height: 52, display: 'flex', alignItems: 'center', gap: 12, padding: '0 16px', background: '#fff', borderBottom: '1px solid #e2e8f0', flexShrink: 0, width: '100%', boxSizing: 'border-box' }}>
+        <button onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '5px 12px', background: 'none', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', fontSize: 13, color: '#64748b' }}>
           ← Voltar
         </button>
         <div style={{ width: 1, height: 20, background: '#e2e8f0' }} />
@@ -139,7 +183,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
           value={noticia.name}
           onChange={e => setNoticia(p => ({ ...p, name: e.target.value }))}
           style={{ fontSize: 14, fontWeight: 700, border: 'none', outline: 'none', background: 'transparent', color: '#0f172a', minWidth: 160 }}
-          placeholder="Nome do Produto"
+          placeholder="Nome do Noticia"
         />
         {noticia.slug && (
           <span style={{ fontSize: 12, color: '#94a3b8', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 5, padding: '3px 8px' }}>
@@ -151,7 +195,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
           style={{ padding: '6px 14px', background: 'none', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', fontSize: 13, color: '#64748b' }}>
           ↗ Abrir
         </button>
-        {error && <span style={{ fontSize: 12, color: '#ef4444' }}>{error}</span>}
+        {error && <span style={{ fontSize: 12, color: '#ef4444', maxWidth: 240 }}>{error}</span>}
         {savedOk && <span style={{ fontSize: 12, color: '#16a34a', fontWeight: 600 }}>✓ Salvo</span>}
         <button onClick={handleSave} disabled={saving} style={{
           padding: '7px 20px', background: saving ? '#818cf8' : '#4f46e5', color: '#fff',
@@ -162,7 +206,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
       </div>
 
       {/* BODY */}
-      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', width: '100%' }}>
 
         {/* SIDEBAR */}
         <div style={{ width: 300, flexShrink: 0, background: '#fff', borderRight: '1px solid #e2e8f0', overflowY: 'auto' }}>
@@ -175,12 +219,46 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
             </Field>
             <Field label="Slug" hint={`URL: /${noticia.slug}`}>
               <div style={{ display: 'flex', gap: 6 }}>
-                <input style={{ ...inp, flex: 1 }} value={noticia.slug} onChange={e => setNoticia(p => ({ ...p, slug: e.target.value }))} placeholder="minha-noticia" />
+                <input style={{ ...inp, flex: 1 }} value={noticia.slug} onChange={e => setNoticia(p => ({ ...p, slug: e.target.value }))} placeholder="meu-noticia" />
                 <button onClick={() => setNoticia(p => ({ ...p, slug: slugify(p.name) }))}
                   style={{ padding: '0 10px', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 6, cursor: 'pointer', fontSize: 11, color: '#64748b', whiteSpace: 'nowrap' }}>
                   Auto
                 </button>
               </div>
+            </Field>
+            <Field label="Descrição *">
+              <textarea
+                style={{ ...inp, resize: 'vertical', minHeight: 72, fontFamily: 'inherit' }}
+                value={noticia.description}
+                onChange={e => setNoticia(p => ({ ...p, description: e.target.value }))}
+                placeholder="Descreva o noticia em poucas frases…"
+              />
+            </Field>
+            <Field label="Foto de capa *">
+              <input ref={coverInputRef} type="file" accept="image/*" style={{ display: 'none' }} onChange={handleCoverUpload} />
+              {noticia.coverImage ? (
+                <div style={{ position: 'relative' }}>
+                  <img
+                    src={noticia.coverImage}
+                    alt="Capa"
+                    style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 6, border: '1px solid #e2e8f0', display: 'block' }}
+                  />
+                  <button
+                    onClick={() => coverInputRef.current?.click()}
+                    style={{ position: 'absolute', bottom: 6, right: 6, background: 'rgba(0,0,0,.55)', color: '#fff', border: 'none', borderRadius: 5, padding: '4px 10px', cursor: 'pointer', fontSize: 11 }}
+                  >
+                    Trocar
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => coverInputRef.current?.click()}
+                  disabled={uploadingCover}
+                  style={{ width: '100%', padding: '18px 0', background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: 6, cursor: 'pointer', fontSize: 13, color: '#94a3b8', textAlign: 'center' }}
+                >
+                  {uploadingCover ? 'Enviando…' : '+ Adicionar foto de capa'}
+                </button>
+              )}
             </Field>
           </div>
 
@@ -243,7 +321,7 @@ export function NoticiaEditor({ initial, onBack, onSaved }: Props) {
               <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#22c55e' }} />
             </div>
             <div style={{ flex: 1, background: '#334155', borderRadius: 5, padding: '3px 12px', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-              {`localhost:3000/products/slug/${noticia.slug || '...'}`}
+              {`localhost:3000/noticias/slug/${noticia.slug || '...'}`}
             </div>
           </div>
           <iframe ref={iframeRef} srcDoc={html} style={{ flex: 1, border: 'none' }} sandbox="allow-scripts allow-same-origin" title="Preview" />

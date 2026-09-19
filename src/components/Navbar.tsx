@@ -1,0 +1,94 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const NAV_ITEMS = [
+  { label: 'Noticias', path: '/', match: (p: string) => p === '/' || p.startsWith('/noticias') },
+  { label: 'Usuários', path: '/users', match: (p: string) => p.startsWith('/users') },
+];
+
+export function Navbar() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { user, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const initials = user?.name
+    .split(' ')
+    .map(n => n[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase() ?? '';
+
+  return (
+    <div style={{ background: '#0f172a', display: 'flex', alignItems: 'center', gap: 2, padding: '0 24px', height: 44, flexShrink: 0 }}>
+      <span style={{ fontSize: 13, fontWeight: 800, color: '#fff', marginRight: 20, letterSpacing: '-.3px' }}>
+        Camerite
+      </span>
+
+      {NAV_ITEMS.map(item => {
+        const active = item.match(pathname);
+        return (
+          <button
+            key={item.path}
+            onClick={() => navigate(item.path)}
+            style={{
+              padding: '5px 14px',
+              background: active ? 'rgba(255,255,255,.12)' : 'none',
+              border: 'none',
+              borderRadius: 6,
+              cursor: 'pointer',
+              fontSize: 13,
+              fontWeight: active ? 600 : 400,
+              color: active ? '#fff' : 'rgba(255,255,255,.55)',
+              transition: 'all .15s',
+            }}
+            onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'rgba(255,255,255,.85)'; }}
+            onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'rgba(255,255,255,.55)'; }}
+          >
+            {item.label}
+          </button>
+        );
+      })}
+
+      <div style={{ flex: 1 }} />
+
+      {user && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{
+            width: 26, height: 26, borderRadius: '50%',
+            background: 'rgba(255,255,255,.15)',
+            color: '#fff',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 11, fontWeight: 700, flexShrink: 0,
+          }}>
+            {initials}
+          </div>
+          <span style={{ fontSize: 13, color: 'rgba(255,255,255,.75)', maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            {user.name}
+          </span>
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: '4px 12px',
+              background: 'none',
+              border: '1px solid rgba(255,255,255,.2)',
+              borderRadius: 6,
+              cursor: 'pointer',
+              fontSize: 12,
+              color: 'rgba(255,255,255,.55)',
+              transition: 'all .15s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.5)'; }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,.55)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,.2)'; }}
+          >
+            Sair
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
