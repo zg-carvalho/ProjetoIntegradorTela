@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaWhatsappSquare } from 'react-icons/fa'; // 💡 Importação do ícone mantida aqui
 import type { Noticia } from '../types/noticia';
 import { fetchNoticias } from '../api/noticias';
+import { Link } from 'react-router-dom';
 import fotoPerfil from "../assets/JPEG.jpg"
 import './home.css'; // ✅ Importação do arquivo css atualizado acima
 
@@ -55,7 +56,7 @@ export function Home() {
   </div>
 </header>
 
-      {/* Conteúdo Centralizado */}
+    {/* Conteúdo Centralizado */}
       <main className="home-main-content">
         {noticias.length === 0 ? (
           <p className="home-empty-message">Nenhuma notícia cadastrada no momento.</p>
@@ -69,12 +70,14 @@ export function Home() {
                 <div className="news-card-body">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
-                  <button
-                    onClick={() => navigate(`/noticias/${item.slug}`)}
+                  
+                  {/* Atualizado para Link do react-router-dom */}
+                  <Link
+                    to={`/noticias/${item.slug}`}
                     className="btn-read-more"
                   >
                     Ler notícia completa
-                  </button>
+                  </Link>
                 </div>
               </div>
             ))}
@@ -83,12 +86,13 @@ export function Home() {
         
         {/* Alterado para evitar conflito de classes com o footer global */}
         <div className="home-more-news">
-          <button 
-            onClick={() => navigate('/noticias')} 
+          {/* Atualizado também para Link para manter o padrão sem quebras */}
+          <Link 
+            to="/noticias" 
             className="btn-view-all"
           >
             Ver Todas as Notícias →
-          </button>
+          </Link>
         </div>
       </main>
 

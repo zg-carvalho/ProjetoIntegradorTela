@@ -1,0 +1,100 @@
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  min-height: 100vh;
+  box-sizing: border-box;
+  
+  /* Remove interferências de colunas ou grids externas */
+  width: 100%;
+  clear: both;
+}
+
+.backButton {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  margin-bottom: 28px;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 0;
+}
+
+.backButton:hover {
+  color: #1d4ed8;
+  transform: translateX(-4px);
+}
+
+.title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.imageWrapper {
+  width: 100%;
+  max-height: 480px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-bottom: 36px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.imageWrapper:hover .image {
+  transform: scale(1.02);
+}
+
+.content {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #334155;
+  white-space: pre-line;
+  text-align: justify;
+  letter-spacing: -0.01em;
+}
+
+/* Caso a linha preta venha de uma tag global herdada de layouts antigos */
+:global(body) {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+/* Telas menores (Mobile) */
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 16px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    margin-bottom: 16px;
+  }
+  
+  .imageWrapper {
+    margin-bottom: 24px;
+    border-radius: 12px;
+  }
+  
+  .content {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+}

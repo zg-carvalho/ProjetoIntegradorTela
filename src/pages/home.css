@@ -122,60 +122,68 @@ div.home-container, #root div.home-container {
 }
 
 
-/* Cartão Individual de Notícia */
+
+
+/* Localize e atualize o estilo do Card */
 .news-card {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%; /* Força todos os cards a terem a mesma altura */
 }
 
-.news-card-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
+/* Localize e atualize o corpo do Card */
 .news-card-body {
   padding: 20px;
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  flex-grow: 1; /* Faz o corpo ocupar todo o espaço restante */
+  justify-content: space-between; /* Garante que o botão fique sempre alinhado na parte de baixo */
 }
 
+/* Garanta que o título e a descrição fiquem agrupados ou tenham margens controladas */
 .news-card-body h3 {
-  font-size: 15px;
-  font-weight: 700;
-  margin: 0;
-  color: #0f172a;
-  line-height: 1.3;
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #1e293b;
 }
 
 .news-card-body p {
-  font-size: 13px;
+  font-size: 0.95rem;
   color: #64748b;
-  margin: 0;
-  flex: 1;
+  margin-bottom: 20px; /* Margem para empurrar o botão para baixo com segurança */
   line-height: 1.5;
 }
 
-/* Botão de dentro do cartão (Ler notícia completa) */
+/* Localize e atualize o Botão */
 .btn-read-more {
-  background: #4f46e5;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;
-  margin-top: 12px;
+  display: block;
   width: 100%;
+  padding: 12px;
+  background-color: #4f46e5; /* Tom de azul/roxo similar ao seu layout */
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box; /* Garante que o padding não aumente o tamanho real do botão */
+  transition: background-color 0.2s ease;
 }
+
+.btn-read-more:hover {
+  background-color: #4338ca;
+}
+
+
+
 
 /* Rodapé inferior da Home */
 .home-footer {
