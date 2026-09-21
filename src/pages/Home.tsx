@@ -29,34 +29,34 @@ export function Home() {
 
   return (
     <div className="home-container">
-      
+
       {/* Cabeçalho Isolado com o novo botão integrado */}
       <header className="home-header-wrapper">
-  <div className="home-header-content">
-    
-    {/* Bloco do Logo */}
-    <div id="logo">
-      <img src={fotoPerfil} alt="Logo do CETI José Amável" />
-    </div>
+        <div className="home-header-content">
 
-    {/* Bloco de Texto */}
-    <div className="home-header-text">
-      <h1>CETI JOSÉ AMÁVEL</h1>
-      <p>Editor visual de páginas web para seus noticias</p>
-    </div>
-    
-    {/* Botão na extrema direita */}
-    <button 
-      onClick={() => navigate('/noticias', { state: { hideHeader: true } })} 
-      className="btn-header-news"
-    >
-      Todas as Notícias
-    </button>
+          {/* Bloco do Logo */}
+          <div id="logo">
+            <img src={fotoPerfil} alt="Logo do CETI José Amável" />
+          </div>
 
-  </div>
-</header>
+          {/* Bloco de Texto */}
+          <div className="home-header-text">
+            <h1>CETI JOSÉ AMÁVEL</h1>
+            <p>Editor visual de páginas web para seus noticias</p>
+          </div>
 
-    {/* Conteúdo Centralizado */}
+          {/* Botão na extrema direita */}
+          <button
+            onClick={() => navigate('/noticias', { state: { hideHeader: true } })}
+            className="btn-header-news"
+          >
+            Todas as Notícias
+          </button>
+
+        </div>
+      </header>
+
+      {/* Conteúdo Centralizado */}
       <main className="home-main-content">
         {noticias.length === 0 ? (
           <p className="home-empty-message">Nenhuma notícia cadastrada no momento.</p>
@@ -70,7 +70,7 @@ export function Home() {
                 <div className="news-card-body">
                   <h3>{item.name}</h3>
                   <p>{item.description}</p>
-                  
+
                   {/* Atualizado para Link do react-router-dom */}
                   <Link
                     to={`/noticias/${item.slug}`}
@@ -83,15 +83,12 @@ export function Home() {
             ))}
           </div>
         )}
-        
+
         {/* Alterado para evitar conflito de classes com o footer global */}
         <div className="home-more-news">
           {/* Atualizado também para Link para manter o padrão sem quebras */}
-          <Link 
-            to="/noticias" 
-            className="btn-view-all"
-          >
-            Ver Todas as Notícias →
+          <Link to="/noticias" className="btn-view-all">
+            Login e Notícias
           </Link>
         </div>
       </main>
@@ -112,12 +109,12 @@ export function Home() {
           >
             <FaWhatsappSquare size={36} />
           </a>
-        </div>   
+        </div>
       </section>
 
       {/* 🚀 Seu novo Rodapé adicionado no local correto */}
-      <footer className="home-footer-global"> 
-        <p> © 2026 - Desenvolvido pela equipe do Projeto Integrador. Todos os direitos reservados. </p> 
+      <footer className="home-footer-global">
+        <p> © 2026 - Desenvolvido pela equipe do Projeto Integrador. Todos os direitos reservados. </p>
       </footer>
     </div>
   );

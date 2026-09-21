@@ -191,19 +191,28 @@ div.home-container, #root div.home-container {
   margin-top: 48px;
 }
 
-/* Botão "Ver Todas as Notícias" */
 .btn-view-all {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  padding: 12px 28px;
-  border-radius: 8px;
+  display: inline-block;
+  width: 100%; /* Faz o botão ocupar a largura do container, igual ao da esquerda */
+  max-width: 250px; /* Ajuste o tamanho máximo se não quiser que ele estique muito */
+  background-color: #4f46e5; /* Cor roxa/azul baseada na imagem */
+  color: #ffffff; /* Texto branco */
+  padding: 12px 24px; /* Espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: 600; /* Texto levemente em negrito */
+  text-align: center; /* Centraliza o texto */
+  text-decoration: none; /* Remove o sublinhado padrão de links */
+  border-radius: 6px; /* Bordas arredondadas */
+  border: none;
+  transition: background-color 0.2s ease; /* Transição suave ao passar o mouse */
   cursor: pointer;
-  color: #4f46e5;
-  font-weight: 600;
-  font-size: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+/* Efeito ao passar o mouse (Hover) */
+.btn-view-all:hover {
+  background-color: #4338ca; /* Tom ligeiramente mais escuro */
+  color: #ffffff;
+}
 footer { /* Rodapé */
     text-align: center;
     padding: 20px;
