@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaWhatsappSquare } from 'react-icons/fa'; // 💡 Importação do ícone mantida aqui
 import type { Noticia } from '../types/noticia';
 import { fetchNoticias } from '../api/noticias';
 import './home.css'; // ✅ Importação do arquivo css atualizado acima
@@ -27,11 +28,21 @@ export function Home() {
   return (
     <div className="home-container">
       
-      {/* Cabeçalho Isolado (Estilizado via CSS com fundo branco e alinhado à esquerda) */}
+      {/* Cabeçalho Isolado com o novo botão integrado */}
       <header className="home-header-wrapper">
         <div className="home-header-content">
-          <h1>CETI JOSÉ AMÁVEL</h1>
-          <p>Editor visual de páginas web para seus noticias</p>
+          <div className="home-header-text">
+            <h1>CETI JOSÉ AMÁVEL</h1>
+            <p>Editor visual de páginas web para seus noticias</p>
+          </div>
+          
+          {/* 🚀 Novo botão adicionado ao cabeçalho que avisa para esconder o topo na próxima página */}
+          <button 
+            onClick={() => navigate('/noticias', { state: { hideHeader: true } })} 
+            className="btn-header-news"
+          >
+            Todas as Notícias
+          </button>
         </div>
       </header>
 
@@ -71,6 +82,25 @@ export function Home() {
           </button>
         </div>
       </main>
+
+      {/* 🚀 Seção de Contato Flutuante com o botão e ícone do WhatsApp */}
+      <section id="contato" className="whatsapp-floating-section">
+        <a href="#contato" className="btn btn-light btn-floating-contato">
+          Contato
+        </a>
+
+        <div className="item-whatsapp">
+          {/* 💡 Lembre-se de substituir os zeros pelo número real com o DDD (ex: https://wa.me) */}
+          <a
+            href="https://wa.me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-whatsapp"
+          >
+            <FaWhatsappSquare size={36} />
+          </a>
+        </div>   
+      </section>
 
       {/* 🚀 Seu novo Rodapé adicionado no local correto */}
       <footer className="home-footer-global"> 

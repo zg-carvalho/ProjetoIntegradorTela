@@ -3,6 +3,7 @@ html, body, #root {
   background: #ffffff !important;
   margin: 0;
   padding: 0;
+  height: 100%; /* 💡 ADICIONADO: Essencial para que os filhos saibam o tamanho da tela */
 }
 
 /* Área externa (Ocupa 100% da tela em branco) */
@@ -14,6 +15,10 @@ html, body, #root {
   padding: 0;
   box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
+  /* 💡 ADICIONADO: Transforma o container da página em Flexbox */
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Remove o travamento lateral e expande o fundo branco por toda a tela */
@@ -25,6 +30,22 @@ div.home-container, #root div.home-container {
   padding: 0 !important;
   background-color: #ffffff !important;
   box-sizing: border-box !important;
+  
+  /* 💡 ADICIONADO: Garante que os seletores mais fortes herdem o Flexbox */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Área interna do conteúdo central */
+.home-main-content {
+  max-width: 1200px;
+  width: 100%; /* 💡 ADICIONADO: Garante que ocupe a largura total */
+  margin: 0 auto;
+  padding: 32px;
+  box-sizing: border-box;
+  
+  /* 💡 ADICIONADO: Faz a mágica de esticar verticalmente e empurrar o footer */
+  flex: 1 !important; 
 }
 
 /* Estado de Carregamento */
@@ -64,13 +85,7 @@ div.home-container, #root div.home-container {
   text-align: left;
 }
 
-/* Área interna do conteúdo central */
-.home-main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px;
-  box-sizing: border-box;
-}
+
 
 /* Mensagem de Lista Vazia */
 .home-empty-message {
@@ -170,14 +185,92 @@ footer { /* Rodapé */
     margin-top: 40px;
     font-family: inherit; /* Força o rodapé a herdar a mesma fonte do cabeçalho e do resto da página */
 }
+
 .home-footer-global {
     text-align: center;
     padding: 25px 20px;
     background-color: #f8f9fa; /* Cinza claro moderno e minimalista */
     color: #4a5568; /* Grafite escuro para excelente leitura */
-    margin-top: 60px;
+    margin-top: auto !important; /* 💡 ALTERADO: "auto" força o rodapé para o final da div flex */
     border-top: 1px solid #e2e8f0; /* Linha fina que delimita o espaço do rodapé */
     font-family: inherit; /* Mantém a fonte idêntica ao cabeçalho */
     font-size: 0.9rem;
     font-weight: 500;
+    width: 100%; /* 💡 ADICIONADO: Garante que ocupe toda a largura horizontal */
+    box-sizing: border-box;
+}
+
+/* Container que agrupa o botão e o ícone fixos no canto inferior direito */
+.whatsapp-floating-section {
+  position: fixed !important;
+  bottom: 25px; /* Distância fixa em relação à base da tela visual */
+  right: 25px;  /* Distância fixa em relação à borda direita */
+  display: flex;
+  align-items: center;
+  gap: 12px;    /* Espaço horizontal entre o botão de texto e o ícone */
+  z-index: 9999; /* Garante que fique flutuando por cima de todo o conteúdo */
+}
+
+/* Estilo do botão de texto escrito "Contato" */
+.btn-floating-contato {
+  background-color: #ffffff;
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.btn-floating-contato:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-2px);
+}
+
+/* 🟢 SEU CÓDIGO CSS ADAPTADO: Campo do link/ícone do WhatsApp */
+.link-whatsapp {
+    display: flex;
+    align-items: center;
+    color: #25D366; /* Cor verde oficial do WhatsApp */
+    text-decoration: none;
+    padding-top: 10px;    /* Ajuste de espaçamento conforme solicitado */
+    padding-bottom: 15px; /* Ajuste de espaçamento conforme solicitado */
+}
+
+/* Aplica o efeito visual de crescimento suave diretamente na imagem dentro do link */
+.link-whatsapp img {
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+}
+
+/* Efeito ao passar o mouse por cima do ícone */
+.link-whatsapp:hover img {
+    transform: scale(1.1); /* Deixa o ícone levemente maior ao passar o mouse */
+    filter: brightness(0.95); /* Dá um leve destaque visual */
+}
+
+.home-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Empurra o botão para o canto direito */
+  align-items: center; /* Mantém o alinhamento vertical centralizado */
+}
+
+.btn-header-news {
+  background: #4f46e5;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color 0.2s;
+}
+
+.btn-header-news:hover {
+  background: #4338ca;
 }
