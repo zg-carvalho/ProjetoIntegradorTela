@@ -61,13 +61,33 @@ div.home-container, #root div.home-container {
   background-color: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   width: 100%;
-  padding: 20px 32px;
+  padding: 08px 30px;
+  padding-bottom: 0px;  /* 💡 REDUZIDO: Aproxima a linha de baixo da logo e dos textos */
   box-sizing: border-box;
 }
 
+/* 🚀 ATUALIZADO: Alinha o Logo, o Bloco de Texto e o Botão lado a lado */
 .home-header-content {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex !important;
+  flex-direction: row !important; /* Coloca os elementos na horizontal */
+  align-items: center !important;  /* Centraliza todos verticalmente na mesma linha */
+  gap: 20px;                      /* Espaço entre o logo e o texto */
+}
+
+/* 🚀 ADICIONADO: Garante que o logo tenha um tamanho controlado e limpo */
+#logo img {
+  height: 60px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+  margin-top: 4px; /* 💡 ADICIONADO: Empurra a imagem um pouco para baixo */
+}
+
+/* 🚀 ADICIONADO: Bloco que envolve o h1 e p para empurrar o botão para o canto direito */
+.home-header-text {
+  flex: 1; 
 }
 
 .home-header-content h1 {
@@ -85,8 +105,6 @@ div.home-container, #root div.home-container {
   text-align: left;
 }
 
-
-
 /* Mensagem de Lista Vazia */
 .home-empty-message {
   text-align: center;
@@ -102,6 +120,7 @@ div.home-container, #root div.home-container {
   gap: 28px;
   justify-content: center;
 }
+
 
 /* Cartão Individual de Notícia */
 .news-card {
@@ -273,4 +292,12 @@ footer { /* Rodapé */
 
 .btn-header-news:hover {
   background: #4338ca;
+}
+
+#logo {
+    display: flex;
+   width: 80px;
+    height: 80px;
+     gap: 20px; /* Aumente este número para afastar mais o nome da escola da logo*/
+ 
 }

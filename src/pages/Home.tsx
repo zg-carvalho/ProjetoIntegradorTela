@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaWhatsappSquare } from 'react-icons/fa'; // 💡 Importação do ícone mantida aqui
 import type { Noticia } from '../types/noticia';
 import { fetchNoticias } from '../api/noticias';
+import fotoPerfil from "../assets/JPEG.jpg"
 import './home.css'; // ✅ Importação do arquivo css atualizado acima
 
 export function Home() {
@@ -30,21 +31,29 @@ export function Home() {
       
       {/* Cabeçalho Isolado com o novo botão integrado */}
       <header className="home-header-wrapper">
-        <div className="home-header-content">
-          <div className="home-header-text">
-            <h1>CETI JOSÉ AMÁVEL</h1>
-            <p>Editor visual de páginas web para seus noticias</p>
-          </div>
-          
-          {/* 🚀 Novo botão adicionado ao cabeçalho que avisa para esconder o topo na próxima página */}
-          <button 
-            onClick={() => navigate('/noticias', { state: { hideHeader: true } })} 
-            className="btn-header-news"
-          >
-            Todas as Notícias
-          </button>
-        </div>
-      </header>
+  <div className="home-header-content">
+    
+    {/* Bloco do Logo */}
+    <div id="logo">
+      <img src={fotoPerfil} alt="Logo do CETI José Amável" />
+    </div>
+
+    {/* Bloco de Texto */}
+    <div className="home-header-text">
+      <h1>CETI JOSÉ AMÁVEL</h1>
+      <p>Editor visual de páginas web para seus noticias</p>
+    </div>
+    
+    {/* Botão na extrema direita */}
+    <button 
+      onClick={() => navigate('/noticias', { state: { hideHeader: true } })} 
+      className="btn-header-news"
+    >
+      Todas as Notícias
+    </button>
+
+  </div>
+</header>
 
       {/* Conteúdo Centralizado */}
       <main className="home-main-content">
