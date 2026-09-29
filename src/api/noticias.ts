@@ -1,7 +1,7 @@
 import type { Noticia } from '../types/noticia';
 import { authHeaders } from './auth';
 
-const API_URL = 'https://apintegrador.onrender.com';
+const API_URL = 'http://localhost:3000';
 
 export async function fetchNoticias(): Promise<Noticia[]> {
   const res = await fetch(`${API_URL}/noticias`);
