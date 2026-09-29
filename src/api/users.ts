@@ -1,7 +1,7 @@
 import type { User } from '../types/user';
 import { authHeaders } from './auth';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'https://apintegrador.onrender.com';
 
 async function extractError(res: Response, fallback: string): Promise<string> {
   try {
