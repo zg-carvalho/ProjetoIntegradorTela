@@ -1,4 +1,4 @@
-const API_URL = 'https://apintegrador.onrender.com';
+const API_URL = 'http://localhost:3000';
 const TOKEN_KEY = 'camerite_token';
 const USER_KEY = 'camerite_user';
 
