@@ -318,3 +318,34 @@ footer { /* Rodapé */
      gap: 20px; /* Aumente este número para afastar mais o nome da escola da logo*/
  
 }
+
+#calendario {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza todo o conteúdo horizontalmente */
+    text-align: center;  /* Garante que o H2 e o P fiquem centralizados */
+    font-family: Arial, sans-serif; /* Fonte limpa semelhante à da imagem */
+    padding: 20px;
+    background-color: #ffffff; /* Fundo branco de destaque */
+}
+
+#calendario h2 {
+    color: #333333;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#calendario p {
+    color: #666666;
+    font-size: 1.1rem;
+    margin-bottom: 30px; /* Espaçamento antes de começar o PDF */
+}
+
+#calendario iframe {
+    max-width: 1000px; /* Limita a largura máxima para o PDF não esticar demais */
+    width: 90%;        /* Torna o frame responsivo em telas menores */
+    height: 600px;     /* Altura ideal para visualização na tela */
+    border: none;      /* Remove bordas padrão do iframe */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para dar destaque */
+    border-radius: 4px; /* Arredondamento leve nas bordas */
+}

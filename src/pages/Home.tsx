@@ -84,6 +84,23 @@ export function Home() {
           </div>
         )}
 
+        <section id="calendario">{/* Calendário Escolar */}
+
+          <h2>Calendário Escolar</h2>
+
+          <p>
+            Confira abaixo o Calendário Escolar 2026:
+          </p>
+
+          <iframe
+            src="/calendario_escola_2026.pdf"
+            width="100%"
+            height="700px"
+            title="Calendário Escolar 2026"
+          ></iframe>
+
+        </section>
+
         {/* Alterado para evitar conflito de classes com o footer global */}
         <div className="home-more-news">
           {/* Atualizado também para Link para manter o padrão sem quebras */}
