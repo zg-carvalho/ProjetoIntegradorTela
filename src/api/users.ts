@@ -1,7 +1,8 @@
 import type { User } from '../types/user';
 import { authHeaders } from './auth';
+import { VITE_INTEGRADOR_API_URL } from './config';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = VITE_INTEGRADOR_API_URL;
 
 async function extractError(res: Response, fallback: string): Promise<string> {
   try {

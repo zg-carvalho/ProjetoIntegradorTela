@@ -1,4 +1,6 @@
-const API_URL = 'http://localhost:3000';
+import {VITE_INTEGRADOR_API_URL} from './config'
+
+const API_URL = VITE_INTEGRADOR_API_URL;
 const TOKEN_KEY = 'camerite_token';
 const USER_KEY = 'camerite_user';
 

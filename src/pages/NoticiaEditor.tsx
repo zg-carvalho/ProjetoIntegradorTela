@@ -5,6 +5,7 @@ import { SECTION_LABELS, createDefaultSection } from '../types/noticia';
 import { generatePageHtml } from '../utils/pageGenerator';
 import { fetchNoticia, createNoticia, updateNoticia, uploadImage } from '../api/noticias';
 import { SectionEditor } from '../components/editor/SectionEditor';
+import { VITE_INTEGRADOR_API_URL } from '../api/config';
 
 function slugify(str: string) {
   return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -321,7 +322,7 @@ export function NoticiaEditor() {
               <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#22c55e' }} />
             </div>
             <div style={{ flex: 1, background: '#334155', borderRadius: 5, padding: '3px 12px', fontSize: 11, color: '#94a3b8', textAlign: 'center' }}>
-              {`localhost:3000/noticias/slug/${noticia.slug || '...'}`}
+              {`${VITE_INTEGRADOR_API_URL}/noticias/slug/${noticia.slug || '...'}`}
             </div>
           </div>
           <iframe ref={iframeRef} srcDoc={html} style={{ flex: 1, border: 'none' }} sandbox="allow-scripts allow-same-origin" title="Preview" />

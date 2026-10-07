@@ -1,7 +1,8 @@
 import type { Noticia } from '../types/noticia';
 import { authHeaders } from './auth';
+import { VITE_INTEGRADOR_API_URL } from './config';
 
-const API_URL = 'http://localhost:3000';
+const API_URL = VITE_INTEGRADOR_API_URL;
 
 export async function fetchNoticias(): Promise<Noticia[]> {
   const res = await fetch(`${API_URL}/noticias`);
