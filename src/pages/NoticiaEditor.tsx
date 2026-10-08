@@ -81,7 +81,9 @@ export function NoticiaEditor() {
 
   useEffect(() => {
     if (!id) return;
+
     setLoading(true);
+
     fetchNoticia(Number(id))
       .then(setNoticia)
       .catch(() => setError('Noticia não encontrado'))
@@ -91,42 +93,80 @@ export function NoticiaEditor() {
   const html = generatePageHtml(noticia);
 
   useEffect(() => {
-    if (iframeRef.current) iframeRef.current.srcdoc = html;
+    if (iframeRef.current) {
+      iframeRef.current.srcdoc = html;
+    }
   }, [html]);
 
   const updateSection = useCallback((updated: PageSection) => {
-    setNoticia(p => ({ ...p, sections: p.sections.map(s => s.id === updated.id ? updated : s) }));
+    setNoticia(p => ({
+      ...p,
+      sections: p.sections.map(
+        s => s.id === updated.id ? updated : s
+      )
+    }));
   }, []);
 
   const addSection = (type: SectionType) => {
     const s = createDefaultSection(type);
-    setNoticia(p => ({ ...p, sections: [...p.sections, s] }));
+
+    setNoticia(p => ({
+      ...p,
+      sections: [...p.sections, s]
+    }));
+
     setActiveSection(s.id);
   };
 
   const removeSection = (id: string) => {
-    setNoticia(p => ({ ...p, sections: p.sections.filter(s => s.id !== id) }));
-    if (activeSection === id) setActiveSection(null);
+    setNoticia(p => ({
+      ...p,
+      sections: p.sections.filter(s => s.id !== id)
+    }));
+
+    if (activeSection === id) {
+      setActiveSection(null);
+    }
   };
 
   const moveSection = (id: string, dir: -1 | 1) => {
     setNoticia(p => {
       const arr = [...p.sections];
       const idx = arr.findIndex(s => s.id === id);
-      if (idx + dir < 0 || idx + dir >= arr.length) return p;
-      [arr[idx], arr[idx + dir]] = [arr[idx + dir], arr[idx]];
-      return { ...p, sections: arr };
+
+      if (idx + dir < 0 || idx + dir >= arr.length) {
+        return p;
+      }
+
+      [arr[idx], arr[idx + dir]] = [
+        arr[idx + dir],
+        arr[idx]
+      ];
+
+      return {
+        ...p,
+        sections: arr
+      };
     });
   };
 
-  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCoverUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
+
     setUploadingCover(true);
     setError('');
+
     try {
       const { url } = await uploadImage(file);
-      setNoticia(p => ({ ...p, coverImage: url }));
+
+      setNoticia(p => ({
+        ...p,
+        coverImage: url
+      }));
     } catch {
       setError('Erro ao enviar foto de capa');
     } finally {
@@ -135,11 +175,30 @@ export function NoticiaEditor() {
   };
 
   const handleSave = async () => {
-    if (!noticia.name.trim()) { setError('Nome é obrigatório'); return; }
-    if (!noticia.slug.trim()) { setError('Slug é obrigatório'); return; }
-    if (!noticia.description.trim()) { setError('Descrição é obrigatória'); return; }
-    if (!noticia.coverImage.trim()) { setError('Foto de capa é obrigatória'); return; }
-    setSaving(true); setError(''); setSavedOk(false);
+    if (!noticia.name.trim()) {
+      setError('Nome é obrigatório');
+      return;
+    }
+
+    if (!noticia.slug.trim()) {
+      setError('Slug é obrigatório');
+      return;
+    }
+
+    if (!noticia.description.trim()) {
+      setError('Descrição é obrigatória');
+      return;
+    }
+
+    if (!noticia.coverImage.trim()) {
+      setError('Foto de capa é obrigatória');
+      return;
+    }
+
+    setSaving(true);
+    setError('');
+    setSavedOk(false);
+
     try {
       const payload = {
         name: noticia.name,
@@ -148,15 +207,72 @@ export function NoticiaEditor() {
         coverImage: noticia.coverImage,
         sections: noticia.sections,
       };
-      const result = noticia.id ? await updateNoticia(noticia.id, payload) : await createNoticia(payload);
+
+      // ==========================================================
+      // DEBUG - DADOS QUE SERÃO ENVIADOS PARA A API
+      // ==========================================================
+
+      console.log('========================================');
+      console.log('=== DADOS ANTES DE SALVAR A NOTÍCIA ===');
+      console.log('========================================');
+
+      console.log('ID da notícia:', noticia.id);
+      console.log('Nome:', noticia.name);
+      console.log('Slug:', noticia.slug);
+      console.log('Descrição:', noticia.description);
+      console.log('Sections:', noticia.sections);
+      console.log('Payload completo:', payload);
+
+      // ==========================================================
+      // SALVAR / ATUALIZAR
+      // ==========================================================
+
+      const result = noticia.id
+        ? await updateNoticia(noticia.id, payload)
+        : await createNoticia(payload);
+
+      // ==========================================================
+      // DEBUG - RESPOSTA RECEBIDA DA API
+      // ==========================================================
+
+      console.log('========================================');
+      console.log('=== RESPOSTA RECEBIDA DA API ===');
+      console.log('========================================');
+
+      console.log('Resultado completo:', result);
+      console.log('ID retornado:', result.id);
+      console.log('Descrição retornada:', result.description);
+      console.log('Sections retornadas:', result.sections);
+
+      // Atualiza o estado local com exatamente o que
+      // foi devolvido pelo backend.
       setNoticia(result);
+
       setSavedOk(true);
-      setTimeout(() => setSavedOk(false), 3000);
+
+      setTimeout(() => {
+        setSavedOk(false);
+      }, 3000);
+
+      // Se for uma notícia nova, depois de criada,
+      // vai para a URL de edição correspondente.
       if (!id && result.id) {
-        navigate(`/noticias/${result.id}/edit`, { replace: true });
+        navigate(`/noticias/${result.id}/edit`, {
+          replace: true
+        });
       }
+
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : 'Erro ao salvar');
+      console.error('========================================');
+      console.error('=== ERRO AO SALVAR A NOTÍCIA ===');
+      console.error('========================================');
+      console.error(e);
+
+      setError(
+        e instanceof Error
+          ? e.message
+          : 'Erro ao salvar'
+      );
     } finally {
       setSaving(false);
     }
@@ -164,11 +280,25 @@ export function NoticiaEditor() {
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif', color: '#94a3b8' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100vh',
+          fontFamily:
+            '-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif',
+          color: '#94a3b8'
+        }}
+      >
         Carregando noticia…
       </div>
     );
   }
+
+  // RESTANTE DO SEU COMPONENTE CONTINUA AQUI...
+
+
 
   return (
    /* 🔹 Alterado de '100vh' para incluir '100vw' e 'maxWidth: 100vw', eliminando o espaço em branco na direita */
